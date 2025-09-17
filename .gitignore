@@ -1,0 +1,33 @@
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Claude Code files
+.claude
+
+# Dependencies (if we add any later)
+node_modules/
+
+# Build outputs (if we add build process later)
+dist/
+build/
+
+# Log files
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment files
+.env
+.env.local
+.env.*.local

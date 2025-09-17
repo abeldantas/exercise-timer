@@ -1,0 +1,244 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.container {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    max-width: 600px;
+    width: 100%;
+    padding: 40px;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.header h1 {
+    color: #333;
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.total-time {
+    color: #666;
+    font-size: 1.1rem;
+}
+
+.current-exercise {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 15px;
+    padding: 30px;
+    text-align: center;
+    color: white;
+    margin-bottom: 30px;
+}
+
+.group-name {
+    font-size: 0.9rem;
+    opacity: 0.9;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.exercise-name {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.side-indicator {
+    font-size: 1.1rem;
+    opacity: 0.95;
+    margin-bottom: 20px;
+    height: 25px;
+}
+
+.side-indicator:empty {
+    display: none;
+}
+
+.timer-display {
+    font-size: 4rem;
+    font-weight: bold;
+    font-variant-numeric: tabular-nums;
+}
+
+.progress-section {
+    margin-bottom: 30px;
+}
+
+.progress-bar {
+    height: 8px;
+    background: #e0e0e0;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #667eea, #764ba2);
+    border-radius: 4px;
+    width: 0%;
+    transition: width 0.3s ease;
+}
+
+.exercise-count {
+    text-align: center;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.controls {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.btn {
+    flex: 1;
+    padding: 15px 20px;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.btn-primary:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+.btn-secondary {
+    background: #f0f0f0;
+    color: #333;
+}
+
+.btn-secondary:hover:not(:disabled) {
+    background: #e0e0e0;
+}
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.upcoming {
+    margin-bottom: 30px;
+}
+
+.upcoming h3 {
+    color: #333;
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+}
+
+.upcoming-exercise {
+    padding: 15px;
+    background: #f8f8f8;
+    border-radius: 10px;
+    color: #666;
+}
+
+.exercise-list {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.exercise-list h3 {
+    color: #333;
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+    position: sticky;
+    top: 0;
+    background: white;
+    padding-bottom: 10px;
+}
+
+.exercise-group {
+    margin-bottom: 20px;
+}
+
+.exercise-group-header {
+    font-weight: bold;
+    color: #667eea;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.exercise-item {
+    padding: 8px 15px;
+    margin: 5px 0;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f8f8f8;
+    transition: all 0.3s ease;
+}
+
+.exercise-item.active {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.exercise-item.completed {
+    background: #e8f5e9;
+    color: #4caf50;
+}
+
+.exercise-duration {
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+@media (max-width: 600px) {
+    .container {
+        padding: 20px;
+    }
+
+    .header h1 {
+        font-size: 1.5rem;
+    }
+
+    .exercise-name {
+        font-size: 1.4rem;
+    }
+
+    .timer-display {
+        font-size: 3rem;
+    }
+
+    .controls {
+        flex-wrap: wrap;
+    }
+
+    .btn {
+        min-width: calc(50% - 5px);
+    }
+}

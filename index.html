@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercise Timer</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Stretch & Mobility Timer</h1>
+            <div class="total-time">Total Time: <span id="totalTime">15:00</span></div>
+        </div>
+
+        <div class="current-exercise">
+            <div class="group-name" id="groupName">Hip Flexors</div>
+            <div class="exercise-name" id="exerciseName">World's Greatest Stretch</div>
+            <div class="side-indicator" id="sideIndicator">Left Side</div>
+            <div class="timer-display" id="timerDisplay">1:00</div>
+        </div>
+
+        <div class="progress-section">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="exercise-count">
+                Exercise <span id="currentExercise">1</span> of <span id="totalExercises">20</span>
+            </div>
+        </div>
+
+        <div class="controls">
+            <button id="startBtn" class="btn btn-primary">Start</button>
+            <button id="pauseBtn" class="btn btn-secondary" disabled>Pause</button>
+            <button id="resetBtn" class="btn btn-secondary">Reset</button>
+            <button id="skipBtn" class="btn btn-secondary" disabled>Skip</button>
+        </div>
+
+        <div class="upcoming">
+            <h3>Up Next:</h3>
+            <div id="upcomingExercise" class="upcoming-exercise">Loading...</div>
+        </div>
+
+        <div class="exercise-list">
+            <h3>Exercise Routine</h3>
+            <div id="exerciseList"></div>
+        </div>
+    </div>
+
+    <script src="exercises.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
