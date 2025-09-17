@@ -4,88 +4,58 @@
 const exerciseRoutine = [
     {
         group: "🦵 Hip Flexors",
-        duration: 240, // 4 minutes exercise time
+        duration: 180, // 3 minutes exercise time
         exercises: [
             {
                 name: "World's Greatest Stretch",
-                duration: 45, // seconds
+                duration: 60, // Full minute for deep stretch
                 perSide: true
             },
             {
                 name: "Couch Stretch (hip flexor)",
-                duration: 45,
-                perSide: true
-            },
-            {
-                name: "90/90 Hip Rotations",
-                duration: 30,
-                perSide: false
-            },
-            {
-                name: "Standing Leg Swings (front-back)",
-                duration: 15,
+                duration: 30, // 30 seconds each side
                 perSide: true
             }
         ]
     },
     {
         group: "💪 Shoulders",
-        duration: 235, // ~4 minutes exercise time
+        duration: 180, // 3 minutes exercise time
         exercises: [
             {
-                name: "Arm Circles (forward)",
-                duration: 20,
-                perSide: false
-            },
-            {
-                name: "Arm Circles (backward)",
-                duration: 20,
-                perSide: false
-            },
-            {
                 name: "Thread the Needle (from all fours)",
-                duration: 45,
+                duration: 60, // Full minute for proper stretch
                 perSide: true
             },
             {
-                name: "Prone Y Lifts",
-                duration: 35,
+                name: "Arm Circles (both directions)",
+                duration: 30, // Combined forward and backward
                 perSide: false
             },
             {
-                name: "Prone T Lifts",
-                duration: 35,
-                perSide: false
-            },
-            {
-                name: "Prone W Lifts",
-                duration: 35,
+                name: "Prone Y-T-W Sequence",
+                duration: 30, // All three positions in sequence
                 perSide: false
             }
         ]
     },
     {
         group: "🌀 Thoracic Spine",
-        duration: 235, // ~4 minutes exercise time
+        duration: 180, // 3 minutes exercise time
         exercises: [
             {
                 name: "Cat-Cow",
-                duration: 45,
+                duration: 60, // Full minute for spinal mobility
                 perSide: false
             },
             {
                 name: "Open Books (side lying)",
-                duration: 45,
+                duration: 30, // 30 seconds each side
                 perSide: true
             },
             {
                 name: "T-Spine Extensions on All Fours",
-                duration: 50,
-                perSide: false
-            },
-            {
-                name: "Seated Spinal Rotations",
-                duration: 50,
+                duration: 60, // Full minute for thoracic extension
                 perSide: false
             }
         ]
