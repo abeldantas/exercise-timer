@@ -97,56 +97,92 @@ const exerciseRoutine = [
     }
 ];
 
+// Configuration for buffer time between exercises
+const BUFFER_TIME = 10; // seconds
+
 // Function to flatten the exercise structure for sequential execution
 function prepareExerciseQueue() {
     const queue = [];
+    let isFirst = true;
 
     exerciseRoutine.forEach(group => {
         group.exercises.forEach(exercise => {
             if (exercise.perSide) {
                 // Add exercise for left side
+                if (!isFirst) {
+                    // Add buffer before exercise
+                    queue.push({
+                        group: group.group,
+                        name: "Get Ready",
+                        duration: BUFFER_TIME,
+                        side: "",
+                        isBuffer: true,
+                        nextExercise: `${exercise.name} - Left Side`,
+                        originalIndex: queue.length
+                    });
+                }
                 queue.push({
                     group: group.group,
                     name: exercise.name,
                     duration: exercise.duration,
                     side: "Left Side",
+                    isBuffer: false,
                     originalIndex: queue.length
                 });
+
+                // Add buffer before right side
+                queue.push({
+                    group: group.group,
+                    name: "Switch Sides",
+                    duration: BUFFER_TIME,
+                    side: "",
+                    isBuffer: true,
+                    nextExercise: `${exercise.name} - Right Side`,
+                    originalIndex: queue.length
+                });
+
                 // Add exercise for right side
                 queue.push({
                     group: group.group,
                     name: exercise.name,
                     duration: exercise.duration,
                     side: "Right Side",
+                    isBuffer: false,
                     originalIndex: queue.length
                 });
             } else {
+                // Add buffer before exercise (unless it's the first)
+                if (!isFirst) {
+                    queue.push({
+                        group: group.group,
+                        name: "Get Ready",
+                        duration: BUFFER_TIME,
+                        side: "",
+                        isBuffer: true,
+                        nextExercise: exercise.name,
+                        originalIndex: queue.length
+                    });
+                }
+
                 // Add exercise without sides
                 queue.push({
                     group: group.group,
                     name: exercise.name,
                     duration: exercise.duration,
                     side: "",
+                    isBuffer: false,
                     originalIndex: queue.length
                 });
             }
+            isFirst = false;
         });
     });
 
     return queue;
 }
 
-// Calculate total routine duration
+// Calculate total routine duration (including buffers)
 function calculateTotalDuration() {
-    let total = 0;
-    exerciseRoutine.forEach(group => {
-        group.exercises.forEach(exercise => {
-            if (exercise.perSide) {
-                total += exercise.duration * 2; // Count both sides
-            } else {
-                total += exercise.duration;
-            }
-        });
-    });
-    return total;
+    const queue = prepareExerciseQueue();
+    return queue.reduce((total, item) => total + item.duration, 0);
 }

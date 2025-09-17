@@ -5,6 +5,7 @@ let currentTime = 0;
 let totalTime = 0;
 let intervalId = null;
 let isPaused = false;
+let lastBeepSecond = -1; // Track last second we beeped to avoid duplicates
 
 // DOM elements
 const timerDisplay = document.getElementById('timerDisplay');
@@ -50,10 +51,23 @@ function loadExercise(index) {
 
     currentExerciseIndex = index;
     const exercise = exerciseQueue[index];
+    lastBeepSecond = -1; // Reset beep tracker for new exercise
 
-    exerciseName.textContent = exercise.name;
-    groupName.textContent = exercise.group;
-    sideIndicator.textContent = exercise.side || '';
+    // Update display based on buffer or exercise
+    if (exercise.isBuffer) {
+        exerciseName.textContent = exercise.name;
+        groupName.textContent = exercise.group;
+        sideIndicator.textContent = `Next: ${exercise.nextExercise}`;
+        // Change background for buffers
+        document.querySelector('.current-exercise').style.background = 'linear-gradient(135deg, #ffa500 0%, #ff6b6b 100%)';
+    } else {
+        exerciseName.textContent = exercise.name;
+        groupName.textContent = exercise.group;
+        sideIndicator.textContent = exercise.side || '';
+        // Restore normal background for exercises
+        document.querySelector('.current-exercise').style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+    }
+
     currentTime = exercise.duration;
     timerDisplay.textContent = formatTime(currentTime);
     currentExerciseSpan.textContent = index + 1;
@@ -61,7 +75,11 @@ function loadExercise(index) {
     // Update upcoming exercise
     if (index + 1 < exerciseQueue.length) {
         const next = exerciseQueue[index + 1];
-        upcomingExercise.textContent = `${next.name}${next.side ? ` - ${next.side}` : ''}`;
+        if (next.isBuffer) {
+            upcomingExercise.textContent = `Buffer, then: ${next.nextExercise || 'Next exercise'}`;
+        } else {
+            upcomingExercise.textContent = `${next.name}${next.side ? ` - ${next.side}` : ''}`;
+        }
     } else {
         upcomingExercise.textContent = 'Last exercise!';
     }
@@ -82,6 +100,11 @@ function displayExerciseList() {
     let groupDiv = null;
 
     exerciseQueue.forEach((exercise, index) => {
+        // Skip buffers in the list display
+        if (exercise.isBuffer) {
+            return;
+        }
+
         if (exercise.group !== currentGroup) {
             currentGroup = exercise.group;
             groupDiv = document.createElement('div');
@@ -126,7 +149,7 @@ function updateExerciseListHighlight() {
 }
 
 // Start timer
-function startTimer() {
+async function startTimer() {
     if (intervalId) return;
 
     startBtn.disabled = true;
@@ -134,7 +157,13 @@ function startTimer() {
     skipBtn.disabled = false;
     isPaused = false;
 
-    intervalId = setInterval(() => {
+    // Play start sound if starting a real exercise (not buffer)
+    const currentExercise = exerciseQueue[currentExerciseIndex];
+    if (!currentExercise.isBuffer && currentTime === currentExercise.duration) {
+        await audio.exerciseStartSound();
+    }
+
+    intervalId = setInterval(async () => {
         currentTime--;
         timerDisplay.textContent = formatTime(currentTime);
 
@@ -143,7 +172,27 @@ function startTimer() {
         const currentProgress = completedTime + (exerciseQueue[currentExerciseIndex].duration - currentTime);
         progressFill.style.width = `${(currentProgress / totalTime) * 100}%`;
 
+        // Audio feedback for countdown
+        if (!exerciseQueue[currentExerciseIndex].isBuffer) {
+            if (currentTime === 3 && lastBeepSecond !== 3) {
+                await audio.countdownBeep();
+                lastBeepSecond = 3;
+            } else if (currentTime === 2 && lastBeepSecond !== 2) {
+                await audio.countdownBeep();
+                lastBeepSecond = 2;
+            } else if (currentTime === 1 && lastBeepSecond !== 1) {
+                await audio.finalCountdownBeep();
+                lastBeepSecond = 1;
+            }
+        }
+
         if (currentTime <= 0) {
+            // Play completion sound and move to next
+            if (!exerciseQueue[currentExerciseIndex].isBuffer) {
+                await audio.completionSound();
+            } else {
+                await audio.transitionSound();
+            }
             nextExercise();
         }
     }, 1000);
