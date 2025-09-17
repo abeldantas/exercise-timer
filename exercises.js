@@ -4,7 +4,6 @@
 const exerciseRoutine = [
     {
         group: "🦵 Hip Flexors",
-        duration: 180, // 3 minutes exercise time
         exercises: [
             {
                 name: "World's Greatest Stretch",
@@ -15,12 +14,21 @@ const exerciseRoutine = [
                 name: "Couch Stretch (hip flexor)",
                 duration: 30, // 30 seconds each side
                 perSide: true
+            },
+            {
+                name: "90/90 Hip Rotations",
+                duration: 60, // Full minute for hip mobility
+                perSide: false
+            },
+            {
+                name: "Standing Leg Swings (front-back)",
+                duration: 30, // 30 seconds each side
+                perSide: true
             }
         ]
     },
     {
         group: "💪 Shoulders",
-        duration: 180, // 3 minutes exercise time
         exercises: [
             {
                 name: "Thread the Needle (from all fours)",
@@ -33,6 +41,11 @@ const exerciseRoutine = [
                 perSide: false
             },
             {
+                name: "Shoulder Rolls",
+                duration: 30, // Warm up shoulders
+                perSide: false
+            },
+            {
                 name: "Prone Y-T-W Sequence",
                 duration: 30, // All three positions in sequence
                 perSide: false
@@ -41,7 +54,6 @@ const exerciseRoutine = [
     },
     {
         group: "🌀 Thoracic Spine",
-        duration: 180, // 3 minutes exercise time
         exercises: [
             {
                 name: "Cat-Cow",
@@ -56,6 +68,11 @@ const exerciseRoutine = [
             {
                 name: "T-Spine Extensions on All Fours",
                 duration: 60, // Full minute for thoracic extension
+                perSide: false
+            },
+            {
+                name: "Seated Spinal Rotations",
+                duration: 60, // Full minute for rotation work
                 perSide: false
             }
         ]
